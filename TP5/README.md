@@ -4,22 +4,35 @@ This TP contains a small TensorFlow/Keras convolutional network that trains on t
 
 Prerequisites
 
-- Python 3.10+ and a virtual environment (recommended)
-- Install dependencies from the repository `requirements.txt`.
+- Python 3.10+ (or compatible) and a virtual environment (recommended)
+- Install dependencies from `requirements.txt` (see Quick start)
 
 Quick start (PowerShell)
 
+Use the repository helper to create and populate a virtual environment:
+
+```powershell
+.\setup.ps1
+```
+
+Or run the steps manually:
+
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python TP5\mnist_cnn.py
+. .\\.venv\\Scripts\\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python TP5\\mnist_cnn.py
 ```
 
 Notes
 
 - The script prints training metrics and shows a small Matplotlib window with sample predictions.
-- If you prefer the launcher, use `python run_tp.py TP5` from the repo root.
+- You can also run the TP using the launcher from the repo root:
+
+```powershell
+python run_tp.py TP5
+```
 
 Troubleshooting
 
