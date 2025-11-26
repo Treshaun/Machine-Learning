@@ -27,6 +27,7 @@ python TP5\\mnist_cnn.py
 
 Notes
 
+- This TP uses the global virtual environment (`.venv`) located at the repository root.
 - The script prints training metrics and shows a small Matplotlib window with sample predictions.
 - You can also run the TP using the launcher from the repo root:
 

@@ -1,6 +1,12 @@
 param(
-    [string]$Requirements = ".\requirements.txt"
+    [string]$Requirements = ".\requirements.txt",
+    [switch]$Force
 )
+
+if ($Force -and (Test-Path ".venv")) {
+    Write-Host "Force flag specified, removing existing .venv directory..."
+    Remove-Item -Path ".venv" -Recurse -Force
+}
 
 if (-not (Test-Path $Requirements)) {
     Write-Error "Requirements file not found: $Requirements"
