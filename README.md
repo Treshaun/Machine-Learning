@@ -8,17 +8,11 @@ Use the included `setup.ps1` script — it creates the virtual environment, acti
 
 ```powershell
 .\setup.ps1
-# or run the steps manually:
-# python -m venv .venv
-# .\.venv\Scripts\Activate.ps1
-# python -m pip install --upgrade pip
-# python -m pip install -r requirements.txt
+
 ```
 
 To run a TP script use the `run_tp.py` launcher or call the script directly. Example:
 
 ```powershell
 python run_tp.py TP5
-# or
-python TP5\mnist_cnn.py
 ```
