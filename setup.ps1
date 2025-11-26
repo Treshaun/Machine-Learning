@@ -14,7 +14,30 @@ if (-not (Test-Path $Requirements)) {
 }
 
 Write-Host "Creating virtual environment in .\.venv..."
-python -m venv .venv
+# Choose a python launcher: prefer `python`, fall back to the Windows `py` launcher
+$pythonCmd = $null
+$pythonArgs = $null
+if (Get-Command python -ErrorAction SilentlyContinue) {
+    $pythonCmd = 'python'
+} elseif (Get-Command py -ErrorAction SilentlyContinue) {
+    # Use the py launcher with -3 to ensure Python 3
+    $pythonCmd = 'py'
+    $pythonArgs = '-3'
+}
+
+if (-not $pythonCmd) {
+    Write-Error "Python executable not found. Install Python 3 and ensure 'python' or the 'py' launcher is available in PATH. On Windows, also check Settings > Apps > App execution aliases and disable the alias for 'python'/'python3' if present."
+    exit 1
+}
+
+Write-Host "Using launcher: $pythonCmd $pythonArgs"
+try {
+    if ($pythonArgs) { & $pythonCmd $pythonArgs -m venv .venv } else { & $pythonCmd -m venv .venv }
+} catch {
+    Write-Error "Failed to create virtual environment using '$pythonCmd'. Ensure the launcher points to a valid Python 3 installation. $_"
+    exit 1
+}
+
 $venvPython = Join-Path -Path (Get-Location) -ChildPath ".venv\Scripts\python.exe"
 
 if (-not (Test-Path $venvPython)) {
