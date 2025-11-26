@@ -21,5 +21,42 @@ Write-Host "Upgrading pip and installing requirements into the venv..."
 & $venvPython -m pip install --upgrade pip
 & $venvPython -m pip install -r $Requirements
 
-Write-Host "Setup complete. To activate the virtual environment in your current PowerShell session run:"
-Write-Host ". .\\.venv\\Scripts\\Activate.ps1"
+# Detect whether this script was dot-sourced (so activation can persist) or if we're re-entering
+$reentry = $false
+if ($env:ML_SETUP_REENTRY -eq '1') { $reentry = $true }
+
+$dotSourced = $false
+try {
+    if ($MyInvocation.Line -match '^[\s]*\.[\s]') { $dotSourced = $true }
+} catch {
+    $dotSourced = $false
+}
+
+$scriptPath = $MyInvocation.MyCommand.Path
+
+if ($reentry) {
+    # We're running after being re-invoked to perform activation in the caller session
+    Remove-Item Env:ML_SETUP_REENTRY -ErrorAction SilentlyContinue
+    Write-Host "Activating virtual environment in the current session..."
+    . .\.venv\Scripts\Activate.ps1
+    Write-Host "Activation complete. Use 'python' to run commands inside the venv."
+    return
+}
+
+if ($dotSourced) {
+    # Caller dot-sourced the script directly: create/install already done above, now activate in this session
+    Write-Host "Dot-sourced: activating virtual environment in the current session..."
+    . .\.venv\Scripts\Activate.ps1
+    Write-Host "Activation complete. Use 'python' to run commands inside the venv."
+    return
+} else {
+    # Not dot-sourced: perform install above, then re-invoke this script dot-sourced so activation persists
+    Write-Host "Setup finished. Dot-sourcing the script to activate the venv in this session..."
+    $env:ML_SETUP_REENTRY = '1'
+    try {
+        . $scriptPath
+    } finally {
+        Remove-Item Env:ML_SETUP_REENTRY -ErrorAction SilentlyContinue
+    }
+    return
+}
