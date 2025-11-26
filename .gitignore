@@ -15,8 +15,7 @@ dist/
 
 # IDE settings
 # Keep VS Code tasks while ignoring other editor files
-.vscode/*
-!.vscode/tasks.json
+.vscode/
 .idea/
 
 # Copilot configuration
