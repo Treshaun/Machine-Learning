@@ -6,7 +6,7 @@
             "type": "shell",
             "command": ".\\.venv\\Scripts\\python.exe",
             "args": [
-                "TP5\\src\\mnist_cnn.py"
+                "TP5\\mnist_cnn.py"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

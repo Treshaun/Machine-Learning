@@ -27,7 +27,7 @@ Simple convolutional neural network (CNN) for handwritten digit classification u
 3. Train and evaluate the CNN from the repo root:
 
    ```powershell
-   python TP5\src\mnist_cnn.py
+   python TP5\mnist_cnn.py
    ```
 
 ## VS Code Task

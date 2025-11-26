@@ -21,7 +21,7 @@ This folder groups practical sessions (TP1, TP2, …) for the ML course. Each TP
 2. Navigate to the TP folder you want to run (or reference its paths from the root) and run the corresponding scripts. Example for TP5:
 
    ```powershell
-   python TP5\\src\\mnist_cnn.py
+   python TP5\\mnist_cnn.py
    ```
 
 3. Optional: launch the VS Code task **Run MNIST CNN** to execute TP5 directly via `Tasks: Run Task…`.
