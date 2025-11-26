@@ -9,7 +9,8 @@ Quick start:
   ```powershell
   python -m venv .venv
   .\.venv\Scripts\Activate.ps1
-  pip install -r requirements.txt
+  python -m pip install --upgrade pip
+  python -m pip install -r requirements.txt
   ```
 
 - To run a TP script use the `run_tp.py` launcher or call the script directly. Example:
@@ -19,12 +20,6 @@ Quick start:
   # or
   python TP5\mnist_cnn.py
   ```
-
-Add new TP folders beside `TP5/` as you complete exercises.
-
-Quick setup scripts
-
-If someone clones the repo they can run the included helper scripts to create a virtual environment and install dependencies.
 
 Windows (PowerShell):
 
