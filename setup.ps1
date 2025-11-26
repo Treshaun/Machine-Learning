@@ -31,6 +31,31 @@ if (-not $pythonCmd) {
 }
 
 Write-Host "Using launcher: $pythonCmd $pythonArgs"
+## Require exact Python version 3.11.9
+try {
+    if ($pythonArgs) {
+        $verStr = & $pythonCmd $pythonArgs -c "import sys; print('.'.join(map(str, sys.version_info[:3])))"
+    } else {
+        $verStr = & $pythonCmd -c "import sys; print('.'.join(map(str, sys.version_info[:3])))"
+    }
+} catch {
+    Write-Error "Failed to query Python version using '$pythonCmd'. Ensure the launcher points to a valid Python installation. $_"
+    exit 1
+}
+
+if (-not $verStr) {
+    Write-Error "Unable to determine Python version. Ensure Python is installed and accessible via the chosen launcher."
+    exit 1
+}
+
+$verParts = $verStr.Trim() -split '\.' | ForEach-Object { [int]$_ }
+if ($verParts.Count -lt 3) { $verParts = $verParts + (0..(2-$verParts.Count) | ForEach-Object {0}) }
+
+if (-not ($verParts[0] -eq 3 -and $verParts[1] -eq 11 -and $verParts[2] -eq 9)) {
+    Write-Error "Python $($verStr) is not supported. This project requires exactly Python 3.11.9."
+    exit 1
+}
+
 try {
     if ($pythonArgs) { & $pythonCmd $pythonArgs -m venv .venv } else { & $pythonCmd -m venv .venv }
 } catch {
