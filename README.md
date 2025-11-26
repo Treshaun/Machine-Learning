@@ -21,3 +21,21 @@ Quick start:
   ```
 
 Add new TP folders beside `TP5/` as you complete exercises.
+
+Quick setup scripts
+
+If someone clones the repo they can run the included helper scripts to create a virtual environment and install dependencies.
+
+Windows (PowerShell):
+
+```powershell
+.\setup.ps1
+```
+
+macOS / Linux:
+
+```bash
+./setup.sh
+```
+
+Both scripts accept an optional path to a `requirements.txt` file (default: `requirements.txt`).
