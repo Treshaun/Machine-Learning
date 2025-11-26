@@ -27,3 +27,20 @@ This folder groups practical sessions (TP1, TP2, …) for the ML course. Each TP
 3. Optional: launch the VS Code task **Run MNIST CNN** to execute TP5 directly via `Tasks: Run Task…`.
 
 Keep additional datasets, outputs, or notes inside the appropriate TP directory so other exercises remain unaffected.
+
+## Run any TP script
+
+Use the provided launcher `run_tp.py` to run a TP script by its folder name. Examples (PowerShell):
+
+```powershell
+# Run TP5 using the shared virtual environment if available
+python run_tp.py TP5
+
+# Run TP5 but force a specific python interpreter
+python run_tp.py TP5 --python .\\venv\\Scripts\\python.exe
+
+# Run TP5 specifying an exact script file
+python run_tp.py TP5 --script mnist_cnn.py
+```
+
+The launcher will try common script locations (e.g. `TP5/mnist_cnn.py`, `TP5/*.py`, `TP5/src/*.py`) and use `.venv\\Scripts\\python.exe` if present.
